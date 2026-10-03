@@ -1,5 +1,5 @@
 import { Buffer } from 'buffer'
-import { Connection, PublicKey, Transaction, TransactionInstruction, clusterApiUrl } from '@solana/web3.js'
+import { Connection, PublicKey, Transaction, TransactionInstruction } from '@solana/web3.js'
 
 const MEMO_PROGRAM_ID = new PublicKey('MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr')
 
@@ -16,7 +16,7 @@ function getProvider(): PhantomProvider {
 }
 
 export function usePhantom() {
-  const connection = new Connection(clusterApiUrl('devnet'), 'confirmed')
+  const connection = new Connection(useRuntimeConfig().public.solanaRpcUrl, 'confirmed')
 
   async function connect() {
     const { publicKey } = await getProvider().connect()

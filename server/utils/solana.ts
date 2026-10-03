@@ -1,6 +1,6 @@
-import { Connection, clusterApiUrl } from '@solana/web3.js'
+import { Connection } from '@solana/web3.js'
 
-export const connection = new Connection(process.env.SOLANA_RPC_URL || clusterApiUrl('devnet'), 'confirmed')
+export const connection = new Connection(useRuntimeConfig().public.solanaRpcUrl, 'confirmed')
 
 // Checks on devnet that the transaction exists, was signed by the expected wallet and carries the expected memo
 export async function verifyMemoOnChain(signature: string, expectedSigner: string, expectedMemo: string) {

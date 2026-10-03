@@ -1,7 +1,7 @@
 // End-to-end certificate on Solana devnet without Phantom: a throwaway keypair plays the organization wallet.
 // Usage (fresh seed): npm run db:reset && node scripts/certificate-e2e.mjs
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
-import { Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, Transaction, TransactionInstruction, clusterApiUrl, sendAndConfirmTransaction } from '@solana/web3.js'
+import { Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, Transaction, TransactionInstruction, sendAndConfirmTransaction } from '@solana/web3.js'
 
 const BASE = process.env.BASE_URL ?? 'http://localhost:3000/api'
 const ASSIGNMENT_ID = Number(process.env.ASSIGNMENT_ID ?? 1) // Ana's dashboard for Instituto Esperança
@@ -22,7 +22,8 @@ const wallet = existsSync(WALLET_FILE)
   : Keypair.generate()
 writeFileSync(WALLET_FILE, JSON.stringify([...wallet.secretKey]))
 
-const connection = new Connection(clusterApiUrl('devnet'), 'confirmed')
+process.loadEnvFile()
+const connection = new Connection(process.env.NUXT_PUBLIC_SOLANA_RPC_URL, 'confirmed')
 console.log('wallet', wallet.publicKey.toBase58())
 
 if (await connection.getBalance(wallet.publicKey) < 0.001 * LAMPORTS_PER_SOL) {

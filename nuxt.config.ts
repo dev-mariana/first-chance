@@ -14,6 +14,13 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  runtimeConfig: {
+    public: {
+      // overridden by NUXT_PUBLIC_SOLANA_RPC_URL
+      solanaRpcUrl: 'https://api.devnet.solana.com'
+    }
+  },
+
   compatibilityDate: '2026-06-30',
 
   vite: {
