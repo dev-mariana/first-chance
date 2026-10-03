@@ -1,5 +1,6 @@
 import {
   boolean,
+  date,
   integer,
   pgEnum,
   pgTable,
@@ -70,6 +71,11 @@ export const tasks = pgTable('tasks', {
   deliverables: text('deliverables').notNull(),
   skills: text('skills').array().notNull().default([]),
   estimatedHours: integer('estimated_hours').notNull(),
+  dueDate: date('due_date').notNull(),
+  // due date can be extended only once
+  extended: boolean('extended').notNull().default(false),
+  // days after the first submission for the organization to request revisions and certify
+  revisionWindowDays: integer('revision_window_days').notNull().default(7),
   status: taskStatus('status').notNull().default('open'),
   createdAt: timestamp('created_at').notNull().defaultNow()
 })
@@ -80,6 +86,11 @@ export const assignments = pgTable('assignments', {
   volunteerId: integer('volunteer_id').notNull().references(() => volunteers.id, { onDelete: 'cascade' }),
   status: assignmentStatus('status').notNull().default('in_progress'),
   submissionUrl: text('submission_url'),
+  submittedAt: timestamp('submitted_at'),
+  revisionDeadline: timestamp('revision_deadline'),
+  revisionCount: integer('revision_count').notNull().default(0),
+  revisionComment: text('revision_comment'),
+  rejectionReason: text('rejection_reason'),
   certificateCompetencies: text('certificate_competencies').array(),
   certificateHash: text('certificate_hash'),
   txSignature: text('tx_signature'),
