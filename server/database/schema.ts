@@ -6,8 +6,10 @@ import {
   pgTable,
   serial,
   text,
-  timestamp
+  timestamp,
+  uniqueIndex
 } from 'drizzle-orm/pg-core'
+import { sql } from 'drizzle-orm'
 
 export const taskType = pgEnum('task_type', [
   'programming',
@@ -96,4 +98,9 @@ export const assignments = pgTable('assignments', {
   txSignature: text('tx_signature'),
   certifiedAt: timestamp('certified_at'),
   createdAt: timestamp('created_at').notNull().defaultNow()
-})
+}, t => [
+  // Business rule: a task has at most one volunteer working on it
+  uniqueIndex('assignments_one_active_per_task')
+    .on(t.taskId)
+    .where(sql`${t.status} in ('in_progress', 'submitted', 'revision_requested')`)
+])
