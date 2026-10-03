@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:17-alpine
+    container_name: first-chance-db
+    environment:
+      POSTGRES_USER: firstchance
+      POSTGRES_PASSWORD: firstchance
+      POSTGRES_DB: first_chance
+    ports:
+      - '5433:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
