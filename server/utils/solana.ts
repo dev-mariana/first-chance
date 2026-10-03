@@ -4,7 +4,9 @@ export const connection = new Connection(process.env.SOLANA_RPC_URL || clusterAp
 
 // Checks on devnet that the transaction exists, was signed by the expected wallet and carries the expected memo
 export async function verifyMemoOnChain(signature: string, expectedSigner: string, expectedMemo: string) {
-  const tx = await connection.getParsedTransaction(signature, { maxSupportedTransactionVersion: 0, commitment: 'confirmed' })
+  const tx = await connection
+    .getParsedTransaction(signature, { maxSupportedTransactionVersion: 0, commitment: 'confirmed' })
+    .catch(() => null)
   if (!tx || tx.meta?.err) return { ok: false as const, reason: 'Transação não encontrada ou com erro na devnet' }
 
   const signedByIssuer = tx.transaction.message.accountKeys.some(k => k.signer && k.pubkey.toBase58() === expectedSigner)
