@@ -8,7 +8,7 @@ const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL })
 const db = drizzle(pool, { schema })
 
 // Team Phantom wallet (devnet) used as the issuer wallet in the live demo
-const DEMO_WALLET = 'BMFUMhwqfq9jnShBTKpxFQC1XfNYiNW6YHgb5PWNE9AA'
+const DEMO_WALLET = process.env.DEMO_WALLET_ADDRESS || null
 
 const DAY_MS = 24 * 60 * 60 * 1000
 const daysFromNow = (n: number) => new Date(Date.now() + n * DAY_MS)
