@@ -167,10 +167,15 @@ const issueCertificate = () => run(async () => {
       <p class="text-sm font-medium">
         Quais competências foram de fato aplicadas?
       </p>
-      <UCheckboxGroup v-model="competencies" :items="competencyOptions" orientation="horizontal" />
-      <div class="flex gap-2">
+      <UCheckboxGroup
+        v-model="competencies"
+        :items="competencyOptions"
+        orientation="horizontal"
+        :ui="{ fieldset: 'flex-wrap gap-x-4 gap-y-2' }"
+      />
+      <div class="flex flex-wrap gap-2">
         <UButton
-          :label="certificateKind === 'partial' ? 'Assinar certificado parcial na Phantom' : 'Assinar certificado na Phantom'"
+          label="Assinar na Phantom"
           icon="i-lucide-pen-line"
           :loading="busy"
           :disabled="!walletAddress || !competencies.length"
@@ -182,7 +187,7 @@ const issueCertificate = () => run(async () => {
 
     <div v-if="mode === 'revision'" class="space-y-2 rounded-md bg-elevated p-3">
       <UTextarea v-model="revisionComment" class="w-full" placeholder="O que precisa ser ajustado?" />
-      <div class="flex gap-2">
+      <div class="flex flex-wrap gap-2">
         <UButton
           label="Enviar pedido de ajustes"
           color="warning"
@@ -195,7 +200,7 @@ const issueCertificate = () => run(async () => {
 
     <div v-if="mode === 'reject'" class="space-y-2 rounded-md bg-elevated p-3">
       <UTextarea v-model="rejectionReason" class="w-full" placeholder="Justificativa da reprovação" />
-      <div class="flex gap-2">
+      <div class="flex flex-wrap gap-2">
         <UButton
           label="Confirmar reprovação"
           color="error"
