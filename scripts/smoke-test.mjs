@@ -85,9 +85,8 @@ r = await call('POST', `/assignments/${assignmentId}/reject`, { reason: 'Entrega
 check('organization rejects after a revision request', r.status === 200 && r.data.status === 'rejected')
 
 // Certificates (preparation only; issuing needs a real signature from the organization wallet)
-r = await call('POST', '/assignments/1/certificate/prepare', { competencies: ['Excel'] })
-check('certificate needs the organization wallet', r.status === 400)
-await call('PATCH', '/organizations/2/wallet', { walletAddress: '11111111111111111111111111111111' })
+r = await call('PATCH', '/organizations/3/wallet', { walletAddress: 'not-a-wallet' })
+check('invalid wallet address is rejected', r.status === 400)
 r = await call('POST', '/assignments/3/certificate/prepare', { competencies: ['Canva'] })
 check('expired revision without resubmission yields a partial certificate', r.data?.payload?.kind === 'partial', JSON.stringify(r.data))
 r = await call('POST', '/assignments/2/certificate/prepare', { competencies: ['Excel'] })
