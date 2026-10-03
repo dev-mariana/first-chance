@@ -17,6 +17,8 @@
     "@iconify-json/lucide": "^1.2.137",
     "@iconify-json/simple-icons": "^1.2.97",
     "@nuxt/ui": "^4.11.2",
+    "@solana/web3.js": "^1.99.0",
+    "buffer": "^6.0.3",
     "drizzle-orm": "^0.45.3",
     "nuxt": "^4.5.2",
     "pg": "^8.23.1",

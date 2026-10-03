@@ -5,6 +5,9 @@ export default defineNuxtConfig({
     '@nuxt/ui'
   ],
 
+  // Local MVP: client-side only (window.phantom only exists in the browser)
+  ssr: false,
+
   devtools: {
     enabled: true
   },
@@ -12,6 +15,12 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   compatibilityDate: '2026-06-30',
+
+  vite: {
+    optimizeDeps: {
+      include: ['buffer', '@solana/web3.js']
+    }
+  },
 
   eslint: {
     config: {
