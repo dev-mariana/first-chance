@@ -7,6 +7,9 @@ process.loadEnvFile()
 const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL })
 const db = drizzle(pool, { schema })
 
+// Team Phantom wallet (devnet) used as the issuer wallet in the live demo
+const DEMO_WALLET = 'BMFUMhwqfq9jnShBTKpxFQC1XfNYiNW6YHgb5PWNE9AA'
+
 const DAY_MS = 24 * 60 * 60 * 1000
 const daysFromNow = (n: number) => new Date(Date.now() + n * DAY_MS)
 const dateFromNow = (n: number) => daysFromNow(n).toISOString().slice(0, 10)
@@ -21,7 +24,8 @@ const [esperanca, criancaFeliz, mulheresTech] = await db.insert(schema.organizat
     description: 'Atende 200 crianças no contraturno escolar com reforço, esporte e alimentação na Zona Norte do Rio.',
     email: 'contato@institutoesperanca.org',
     phone: '(21) 99999-1111',
-    website: 'https://institutoesperanca.org'
+    website: 'https://institutoesperanca.org',
+    walletAddress: DEMO_WALLET
   },
   {
     name: 'Casa Criança Feliz',
@@ -29,7 +33,8 @@ const [esperanca, criancaFeliz, mulheresTech] = await db.insert(schema.organizat
     cause: 'Proteção à criança',
     description: 'Acolhimento e acompanhamento de famílias em situação de vulnerabilidade, em rede com outras organizações.',
     email: 'ola@criancafeliz.org',
-    phone: '(21) 98888-2222'
+    phone: '(21) 98888-2222',
+    walletAddress: DEMO_WALLET
   },
   {
     name: 'Coletivo Mulheres na Tech',
