@@ -18,11 +18,13 @@ Built during the 3rd WoHackathon RJ (Oct 3, 2026).
 Requirements: Node 22+, Docker, Phantom wallet on **devnet** with test SOL ([faucet](https://faucet.solana.com)).
 
 ```bash
-cp .env.example .env
+cp .env.example .env   # fill in the Postgres credentials and DEMO_WALLET_ADDRESS
 npm install
 npm run setup   # starts Postgres, creates tables and seeds demo data
 npm run dev     # http://localhost:3000
 ```
+
+Secrets live only in `.env` (git-ignored); `.env.example` lists the variables without values.
 
 Other scripts: `npm run db:reset` (clean demo data), `npm run test:smoke` (business rules), `npm run test:e2e` (real certificate on devnet without Phantom).
 
