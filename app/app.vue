@@ -28,11 +28,12 @@ const links = computed(() => [
       <UNavigationMenu :items="links" />
 
       <template #right>
-        <SessionSwitcher />
+        <SessionSwitcher class="hidden lg:inline-flex lg:w-60" />
         <UColorModeButton />
       </template>
 
       <template #body>
+        <SessionSwitcher class="w-full mb-4" />
         <UNavigationMenu :items="links" orientation="vertical" class="-mx-2.5" />
       </template>
     </UHeader>

@@ -29,6 +29,5 @@ watch(session, (value) => {
     :items="items"
     placeholder="Entrar como..."
     icon="i-lucide-log-in"
-    class="w-60"
   />
 </template>
