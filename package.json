@@ -14,7 +14,7 @@
     "db:studio": "drizzle-kit studio",
     "db:seed": "tsx server/database/seed.ts",
     "setup": "npm run db:up && sleep 3 && npm run db:push && npm run db:seed",
-    "db:reset": "docker exec first-chance-db psql -U firstchance -d first_chance -c 'DROP SCHEMA public CASCADE; CREATE SCHEMA public;' && npm run db:push && npm run db:seed",
+    "db:reset": "docker compose exec db sh -c 'psql -U \"$POSTGRES_USER\" -d \"$POSTGRES_DB\" -c \"DROP SCHEMA public CASCADE; CREATE SCHEMA public;\"' && npm run db:push && npm run db:seed",
     "test:smoke": "node scripts/smoke-test.mjs",
     "test:e2e": "node scripts/certificate-e2e.mjs"
   },

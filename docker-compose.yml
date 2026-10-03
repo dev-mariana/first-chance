@@ -3,11 +3,11 @@ services:
     image: postgres:17-alpine
     container_name: first-chance-db
     environment:
-      POSTGRES_USER: firstchance
-      POSTGRES_PASSWORD: firstchance
-      POSTGRES_DB: first_chance
+      POSTGRES_USER: ${POSTGRES_USER:?set POSTGRES_USER in .env}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: ${POSTGRES_DB:?set POSTGRES_DB in .env}
     ports:
-      - '5433:5432'
+      - '${POSTGRES_PORT:-5433}:5432'
     volumes:
       - pgdata:/var/lib/postgresql/data
 
